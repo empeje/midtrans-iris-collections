@@ -1,4 +1,5 @@
 # Midtrans - Iris (Disbursement Service) API Postman Collections
+[![Docs](https://img.shields.io/badge/midtrans-docs-blue.svg)][IRIS_DOCS]
 
 Iris ❤ Postman!
 
