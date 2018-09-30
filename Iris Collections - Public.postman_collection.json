@@ -1,0 +1,904 @@
+{
+	"info": {
+		"_postman_id": "d240461c-8d50-49ec-8f0e-7f1206ac076c",
+		"name": "Iris Collections - Public",
+		"description": "https://github.com/empeje/midtrans-iris-collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "text/plain"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{BASE_URL}}/ping",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Beneficiaries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a88b8716-c108-461b-98cd-4d041f41ea19",
+						"type": "text/javascript",
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"console.log(\"Beneficiary alias: \" + reqBody.alias_name);",
+							"console.log(\"Beneficiary account number: \" + reqBody.account);",
+							"if (responseCode.code == 201)",
+							"    postman.setEnvironmentVariable(\"iris_beneficiary_name\", reqBody.alias_name);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"John Doe\",\n  \"account\": \"{{$randomInt}}{{$randomInt}}\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"test{{$randomInt}}\",\n  \"email\": \"beneficiary@example.com\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Beneficiaries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3d6389e-5c6c-4100-9664-4cc8a14f07e2",
+						"type": "text/javascript",
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"console.log(\"Beneficiary alias: \" + reqBody.alias_name);",
+							"console.log(\"Beneficiary account number: \" + reqBody.account);",
+							"if (responseCode.code == 200)",
+							"    postman.setEnvironmentVariable(\"iris_beneficiary_name\", reqBody.alias_name);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"John Doe\",\n  \"account\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"test{{$randomInt}}\",\n  \"email\": \"beneficiary@example.com\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries/{{iris_beneficiary_name}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries",
+						"{{iris_beneficiary_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Beneficiaries",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"John Doe\",\n  \"account\": \"334527843\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"johnbca1\",\n  \"email\": \"beneficiary1@example.com\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payouts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c5d3227-0f70-4258-91c0-d913bcde924b",
+						"type": "text/javascript",
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"iris_sample_reference_no = resBody.payouts[0].reference_no;",
+							"reference_nos = [];",
+							"",
+							" resBody.payouts.forEach(function(payout) {",
+							"    console.log(\"Reference number: \" + payout.reference_no);",
+							"    reference_nos += payout.reference_no;",
+							"});",
+							"",
+							"console.log(\"Reference number: \" + iris_sample_reference_no);",
+							"",
+							"",
+							"if (responseCode.code == 201){",
+							"    postman.setEnvironmentVariable(\"iris_sample_reference_no\", iris_sample_reference_no);",
+							"    postman.setEnvironmentVariable(\"iris_reference_nos\", reference_nos);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"Example Test\",\n      \"beneficiary_account\": \"2750008807\",\n      \"beneficiary_bank\": \"bni\",\n      \"beneficiary_email\": \"beneficiary@example.com\",\n      \"amount\": 10000,\n      \"notes\": \"Test {{$randomInt}}\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Payouts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{APPROVER_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"{{iris_sample_reference_no}}\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/reject",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Payouts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{APPROVER_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"{{iris_sample_reference_no}}\"],\n  \"otp\": \"335163\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/approve",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payouts Details/Status",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/{{iris_sample_reference_no}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"{{iris_sample_reference_no}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payouts History",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Banks",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiary_banks",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiary_banks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Bank Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bank\":  \"danamon\",\n  \"account\": \"000001137298\"\n\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/account_validation?bank=danamon&account=000001137298",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account_validation"
+					],
+					"query": [
+						{
+							"key": "bank",
+							"value": "danamon"
+						},
+						{
+							"key": "account",
+							"value": "000001137298"
+						}
+					]
+				},
+				"description": "In this example we use Danamon bank. Complete if you can see here https://iris-docs.midtrans.com/#testing"
+			},
+			"response": []
+		},
+		{
+			"name": "Bank Accounts (Facilitator)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY_FACIL}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/bank_accounts",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"bank_accounts"
+					]
+				},
+				"description": "Facilitator Model Only"
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregator Balance",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/balance",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top Up Channels",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/channels/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"channels",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top Up History",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"10438f2b393005\", \"1d4f8423393005\", \"1d2e1123425937\"],\n  \"reject_reason\": \"Reason to reject payouts\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/statements/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"statements",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
