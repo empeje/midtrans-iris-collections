@@ -51,7 +51,7 @@ WIP. In the meantime please raise an issue [here][ISSUES_LINK] for any issues.
 
 ## Get Help
 
-* [Midtrans](MIDTRANS_SITE)
+* [Midtrans][MIDTRANS_SITE]
 * [Iris Documentation][IRIS_DOCS]
 * Can't find answer you looking for? email to [support@midtrans.com][MIDTRANS_SUPPORT]
 
